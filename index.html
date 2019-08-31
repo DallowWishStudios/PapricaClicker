@@ -15,10 +15,9 @@
 <head>
 
 <body>
-<!-- to see what happens -->
 <div id="main_loading">
 	<div id="title">
-		Paprica Clicker <span id="loading_version">alpha 0.4.2</span>
+		Paprica Clicker <span id="loading_version"></span>
 		<!-- ™ -->
 	</div>
 	<div id="loading">
@@ -116,7 +115,7 @@
 				<div id="paprica_click">
 
 					<div id="bg_rays"></div>
-					<img src="txt/paprica_red.png" draggable="false">
+					<img id='paprica_img' src="txt/peppers/red.png" draggable="false">
 
 				</div>
 
@@ -124,7 +123,6 @@
 
 					<div id="production_consists_button" class='scale_down_active_btn'>
 						<i class="fas fa-chart-pie"></i>
-
 					</div>
 
 					<div class="settings_window" id='consists_window'>
@@ -155,7 +153,24 @@
 						<progress value="0" max="1000"/>
 					</div>
 
-					<div id="skins_button"><i class="fas fa-pepper-hot"></i></div>
+					<div id="skins_button" class='scale_down_active_btn'><i class="fas fa-pepper-hot"></i></div>
+
+					<div class="settings_window" id='skins_window'>
+
+						<div class="settings_close_btn" id='skins_close_btn'><i class="fas fa-times"></i></div>
+						<div class="settings_title" id='skins_title'>Skórki</div>
+						<div class="settings_content" id='skins_content'>
+
+							<!-- <div class="setting">
+								<div class="img"><img src="txt/peppers/yellow.png"></div>
+								<div class='name'>Żółta papryka</div>
+								<div class='bonus'>+25%</div>
+								<div class='desc'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, iste. Nulla alias officia itaque nesciunt fugit quibusdam recusandae</div>
+							</div> -->
+
+						</div>
+
+					</div>
 
 				</div>
 
@@ -273,7 +288,7 @@
 						Kliknięcia: <span class="stat_numbers" id='clicks_per_sec'>0</span>/s <span class="stat_small"> Max: <span class="stat_numbers">0</span>/s </span>
 					</div>
 					<div class="stats">
-						Łącznie papryki: <span class="stat_numbers">0</span>/s
+						Łącznie papryki: <span class="stat_numbers">0</span>/s <span class="stat_small"> Max: <span class="stat_numbers">0</span>/s </span>
 					</div>
 
 					<div id="rank">
@@ -387,7 +402,7 @@
 	</div>
 
 	<footer>
-		<div id="version">Alpha 0.4.2</div>
+		<div id="version"></div>
 
 		<div class="footer_piece">
 
@@ -472,6 +487,8 @@
 <script src="scripts/items/lvls_ranks.js"></script>
 
 <script src="scripts/main/script.js"></script>
+<script src="scripts/items/peppers.js"></script>
+<script src="scripts/classes/skins.js"></script>
 
 <script src="scripts/main/clock.js"></script>
 <script src="scripts/main/update_coins.js"></script>

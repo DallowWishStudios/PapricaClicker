@@ -68,6 +68,8 @@ class Processing_item {
 				}
 			}
 		}
+		
+		this.c_max_eff.innerHTML = this.max_eff_of_needed;
 	}
 
 	dodaj_item() {
@@ -89,6 +91,12 @@ class Processing_item {
 
 				<div class="item_stats">
 					<i class="fas fa-angle-double-right"></i> <span class="stat"> ${this.multi_count}x ${this.multi}</span>
+					<div class="max_eff">
+						<span class='box_arrows'>
+							<span class='size_arrow'><i class="fas fa-arrows-alt-v"></i></span><i class="fas fa-cubes"></i>
+						</span>
+						<span class='max_eff_numbers'> 0 </span>
+					</div>
 				</div>
 
 				<div class="item_control">
@@ -105,6 +113,7 @@ class Processing_item {
 			</div>
 		`);
 		this.handler = document.querySelectorAll("#processing_items .item")[processing_counter];
+		this.c_max_eff = this.handler.querySelector('.max_eff_numbers');
 		//const need_btn = this.handler.getElementsByClassName('item_need_button');
 		processing_counter++;
 
@@ -120,6 +129,37 @@ class Processing_item {
 			c_amount.innerText = tr.amount;
 		}
 
+		const are_conditions_met = (obj, ran_less_than_once=false) => {
+
+
+			if ((space-space_used) >= obj.space && obj.bought_needed && obj.max_eff_of_needed >= (obj.amount * obj.space)+obj.space)
+				return true
+			else if ((space-space_used) < obj.space && ran_less_than_once){
+
+				c_space.style.backgroundColor = '#f55b';
+
+				setTimeout(()=>{
+					c_space.style.backgroundColor = '';
+				}, 300);
+
+				return false
+
+			} else if (obj.max_eff_of_needed < (obj.amount * obj.space)+obj.space && ran_less_than_once){
+
+				const c_max_eff_stat = obj.c_max_eff.parentElement;
+
+				c_max_eff_stat.style.backgroundColor = '#f55b';
+
+				setTimeout(()=>{
+					c_max_eff_stat.style.backgroundColor = '';
+				}, 300);
+
+				return false
+
+			} else
+				return false
+		}
+
 		function add_thing(mode=0){
 
 			//? window click listener (script.js) odpowiada za prawidlowe chowanie pokazywanie listy
@@ -133,20 +173,36 @@ class Processing_item {
 			}
 
 			//tr.check_max_eff();
-			
-			while ((mode === 1)
-			&& ((space-space_used) >= tr.space && tr.bought_needed && tr.max_eff_of_needed >= (tr.amount * tr.space)+tr.space)){
+			let not_ran = true;
 
-				tr.amount++;
-				space_used += tr.space;
-			}
+			do {
 
-			if ((mode === 0)
-			&& ((space-space_used) >= tr.space && tr.bought_needed && tr.max_eff_of_needed >= (tr.amount * tr.space)+tr.space)){
+				if(are_conditions_met(tr, not_ran)){
+					tr.amount++;
+					space_used += tr.space;
+
+				}
+
+				not_ran = false;
 				
-				tr.amount++;
-				space_used += tr.space;
-			}
+			} while (mode === 1 && are_conditions_met(tr))
+
+			
+			// while ((mode === 1)
+			// && ((space-space_used) >= tr.space && tr.bought_needed && tr.max_eff_of_needed >= (tr.amount * tr.space)+tr.space)){
+
+			// 	tr.amount++;
+			// 	space_used += tr.space;
+			// }
+
+			// if ((mode === 0)
+			// && ((space-space_used) >= tr.space && tr.bought_needed && tr.max_eff_of_needed >= (tr.amount * tr.space)+tr.space)){
+				
+			// 	tr.amount++;
+			// 	space_used += tr.space;
+			// }
+
+
 
 			update_space();
 			update_amount();
@@ -195,6 +251,8 @@ class Processing_item {
 
 	check_processing_production(){
 
+		// this.c_max_eff.innerHTML = this.max_eff_of_needed;
+
 		pepper_to_subtract = 0;
 		peppercoins_to_add = 0;
 
@@ -203,7 +261,8 @@ class Processing_item {
 			//if((_pepper - pitems[i].amount * pitems[i].multi_count)>=0){
 
 			pepper_to_subtract -= pitems[i].amount * pitems[i].multi_count;
-			peppercoins_to_add += pitems[i].amount * (pitems[i].multi * pitems[i].multi_count);
+			peppercoins_to_add += pitems[i].amount * (pitems[i].multi * pitems[i].multi_count) * pepper.bonus;
+			
 			//}
 		}
 	}
@@ -218,8 +277,8 @@ class Processing_item {
 		if (!this.need_list_opened) {
 
 			this.open_need_list();
-
-		}	else {
+			
+		} else {
 
 			is_any_list_opened = false;
 			which_list_opened = null;
@@ -336,6 +395,8 @@ class Processing_item {
 
 	check_more_less(){
 		if(this.bought_needed){
+
+			// console.log(this.c_max_eff);
 
 			this.check_max_eff();
 

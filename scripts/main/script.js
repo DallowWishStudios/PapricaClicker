@@ -7,7 +7,7 @@ let space_used=0;
 let starting_space_price=1000;
 let space_price = starting_space_price;
 let space_price_multiplier = 1.2;
-let _wydajnosc=10000000;
+let _wydajnosc=100;
 
 let pepper_to_subtract = 0;
 let peppercoins_to_add = 0;
@@ -22,10 +22,12 @@ let xp_max = 0;
 let xp_fill = 0;
 let lvls = [];
 let lvl_now = 0;
+window.lvl_now = lvl_now;
 
 let clicks_per_sec = 0;
 let clicks_per_sec_max = 0;
 let pepper_overall = 0;
+let pepper_overall_max = 0;
 
 let current_cursor = '';
 
@@ -34,6 +36,7 @@ const stat_prod = document.querySelectorAll(".stats .stat_numbers")[1];
 const c_stat_clicks = document.querySelectorAll(".stats .stat_numbers")[2];
 const c_stat_clicks_max = document.querySelectorAll(".stats .stat_numbers")[3];
 const c_stat_overall = document.querySelectorAll(".stats .stat_numbers")[4];
+const c_stat_overall_max = document.querySelectorAll(".stats .stat_numbers")[5];
 
 const class_item = document.getElementsByClassName('item');
 const progress_bar = document.querySelector('progress');
@@ -61,7 +64,42 @@ let tooltip_std;
 
 const c_expand_ws_button = document.getElementById('exp_ws_btn');
 
-let workshop = {
+const game = {
+	version: 'alpha 0.4.3',
+	devmode: false,
+	caprica: ()=>{
+		const chance = 12;
+		const random = Math.floor(Math.random()*chance+1);
+
+		if(random===chance){ 
+
+			const c_header = document.querySelector('#header h1');
+
+			c_header.innerHTML = 'Caprica Plicker';
+			
+			return true;
+		}
+		else return false;
+	},
+	
+	init: function(){
+		const version_elements = [
+			document.getElementById('version'),
+			document.getElementById('loading_version')
+		];
+
+		version_elements.map(el => el.appendChild(document.createTextNode(this.version)));
+
+		if(this.devmode) _wydajnosc = 10000000;
+		else _wydajnosc = 100;
+
+		this.caprica();
+	},
+};
+
+game.init();
+
+const workshop = {
 	price: 2000,
 	lvl: 1,
 	max_bg: 8,
@@ -141,9 +179,8 @@ const loading = {
 	}
 };
 
-//TODO zrobic automatyczne wylaczenie wuto sprzedazy albo cos po kupieniu rzeczy do przetworni
+//TODO zrobic automatyczne wylaczenie auto sprzedazy albo cos po kupieniu rzeczy do przetworni
 //TODO tutorial
-//TODO ekran ladowania
 
 workshop.c_lvl.innerText = workshop.lvl;
 workshop.c_exp_price.innerText = workshop.expand_price;
@@ -185,7 +222,7 @@ function update_consists(){
 				<div class="processing_piece">
 					<span class="pepper">${ Math.round(pitems_active[i].amount*pitems_active[i].multi_count) }x</span> 
 					<div class='center'>
-						<img src="txt/paprica_red.png" alt="pepper">
+						<img src="txt/peppers/red.png">
 						<i class="fas fa-angle-double-right"></i>
 						<img src="txt/items/processing/${ pitems_active[i].img }">
 					</div>
@@ -198,6 +235,7 @@ function update_consists(){
 	}
 }
 
+const c_space = document.getElementById('space');
 const c_space_meter = document.getElementById('space_amount');
 
 const c_space_together = document.getElementById('space_together');
@@ -456,6 +494,7 @@ const c_main_close_btn = document.getElementById('close_main_settings_btn');
 
 //create_tooltip(document, '#production_consists_button i', `Sprawdź, na co przetwarzana jest twoja papryka!`);
 
+// okienka z ustawieniami
 let settings = [
 	new Setting(c_pepper_settings, c_pepper_settings_window, c_pepper_settings_close_btn),
 	new Setting(c_consists_btn, c_consists_window, c_consists_close_btn),
@@ -463,6 +502,7 @@ let settings = [
 	new Setting(c_main_btn, c_main_window, c_main_close_btn),
 	new Setting(document.getElementById('expand_workshop_btn'), document.getElementById('expand_workshop_window'), document.getElementById('expand_workshop_close_btn')),
 	new Setting(document.getElementById('buy_money'), document.getElementById('buy_money_window'), document.getElementById('buy_money_close_btn')),
+	new Setting(document.getElementById('skins_button'), document.getElementById('skins_window'), document.getElementById('skins_close_btn')),
 ];
 
 // settings outside click clearer
@@ -486,7 +526,7 @@ window.addEventListener('click', (e) => {
 /******/
 
 c_pepper_settings_sell_all.addEventListener('click', ()=>{
-	_peppercoins += _pepper;
+	_peppercoins += _pepper*pepper.bonus;
 	_pepper = 0;
 	update_coins();
 });
@@ -496,15 +536,16 @@ function auto_sell_pepper(pepper){
 
 		auto_sell_percent = c_pepper_settings_slider.value;
 
-		_peppercoins += (pepper/100)*auto_sell_percent;
+		_peppercoins += (pepper/100)*auto_sell_percent* window.pepper.bonus;
 		_pepper -= (pepper/100)*auto_sell_percent;
 	}
 }
 
-let xp_needed = 100;
+let xp_needed = 300;
+const xp_need_multiplier = 1.22;
 
 lvls[0] = xp_needed; 
-xp_needed *= 1.3;
+xp_needed *= xp_need_multiplier;
 
 c_rank_text.innerHTML = lvls_ranks[lvl_now];
 
@@ -540,11 +581,26 @@ let rainbow_timeout = 0;
 let cursed = false;
 let cursed_unlocked = false;
 
-let pepper = {
+//gdy uzyje sie let pepper = {} wtedy window.pepper to element DOM o ID pepper a nie ten obiekt
+window.pepper = {
+
+	skin: 'txt/peppers/red.png',
+	bonus: 1,
+
+	set_skin(skin) {
+		this.skin = `txt/peppers/${skin}`;
+		this.rot.skin = `txt/peppers/rotten/${skin}`;
+
+		if(!this.rot.rotten)
+			pap_click.src = this.skin;
+		else
+		pap_click.src = this.rot.skin;
+	},
 
 	init: (
 		() => {
 			setTimeout(()=>{
+				pap_click.src = pepper.skin;
 				pepper.rot.process();
 			}, 0)
 		}
@@ -552,6 +608,7 @@ let pepper = {
 
 	rot: {
 
+		skin: 'txt/peppers/rotten/red.png',
 		rotten: false,
 		timer: null, //do settimeout
 		compost: 0,
@@ -569,13 +626,13 @@ let pepper = {
 			}, this.delay);
 		},
 
-		rot: function() {
-			pap_click.src = 'txt/rotten_pepper.png';
+		rot() {
+			pap_click.src = this.skin;
 			this.rotten = true;
 		},
 
-		unrot: function() {
-			pap_click.src = 'txt/paprica_red.png';
+		unrot() {
+			pap_click.src = pepper.skin;
 			this.rotten = false;
 			this.compost++;
 		}
@@ -867,7 +924,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	//update_coins();
 
-   	create_tooltip(document, '#skins_button', 'Coming soon...');
+   	//create_tooltip(document, '#skins_button', 'Coming soon...');
 
 });
 

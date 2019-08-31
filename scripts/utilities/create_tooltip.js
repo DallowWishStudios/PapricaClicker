@@ -60,4 +60,4 @@ function create_tooltip(handler, hover_loc, tt_text = "", classes="") {
 }
 
 //element.getBoundingClientRect(); left right bottom
-create_tooltip(document, '#pepper .tt_canvas', `Papryka jest przydatna głównie na etapie przetwórni. Aby zarządzać auto-sprzedażą kliknij na ikonkę ustawień obok.`);
+//create_tooltip(document, '#pepper .tt_canvas', `Papryka jest przydatna głównie na etapie przetwórni. Aby zarządzać auto-sprzedażą kliknij na ikonkę ustawień obok.`);
