@@ -8,7 +8,7 @@ var items = [
 	new Item(6, 'Piłka do metalu', 90, 'Przydatna do cięcia niewielkich metalowych przedmiotów ale nie tak praktyczna w zbieraniu papryki. ', 'pilka_do_metalu.png', 1.07, "pila", 1, 8),
 	new Item(7, 'Szabla', 880, 'Była używana przez szlachtę do samoobrony i przekazywana z pokolenia na pokolenie. ', 'szabla.png', 1.12, "miecz", 1, 12),
 	new Item(8, 'Bokken', 220, 'Drewniana katana do ćwiczeń. Niezbyt przydatna na polu papryki. ', 'bokken.png', 1.01, "katana", 1, 14),
-	//new Item(9, 'Toporek awaryjny', 100, 'Przydatny do rozbijania szyb i innych materiałów w razie pożaru. Aby użyć rozbij szybkę.', 'bokken.png', 1.04, "topor", 1, 15),
+	new Item(9, 'Toporek awaryjny', 300, 'Przydatny do rozbijania szyb i innych materiałów w razie pożaru. Aby użyć rozbij szybkę.', 'bokken.png', 1.04, "topor", 1, 17),
 ];
 var item_upgrades = [
 	items[0],
@@ -40,5 +40,7 @@ var item_upgrades = [
 	items[7],
 	new Item(8, 'Katana', 8000, 'Prawdziwa broń ninja. W rękach doświadczonego paroba może czynić cuda. ', 'katana.png', 1.2, "katana", 2, 14),
 	new Item(8, 'Tęczowa katana', 90000, 'Niezwykle rzadka wariacja katany. Posiada niespotykane właściwości. ', 'teczowa_katana.png', 1.3, "katana", 3, 14),
-	//items[8],
+	items[8],
+	new Item(9, 'Siekiera', 300, 'Zostań prawdziwym paprykowym drwalem.', 'bokken.png', 1.04, "topor", 1, 17),
+	new Item(9, '', 300, 'Zostań prawdziwym paprykowym drwalem.', 'bokken.png', 1.04, "topor", 1, 17),
 ];
