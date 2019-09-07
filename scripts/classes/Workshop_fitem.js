@@ -1,5 +1,4 @@
 let wsf_counter = 0;
-
 class Workshop_fitem {
 	constructor(name, price, desc, img, tag_ref, boost, tag, lvl, avail=0) {
 		this.name = name;
@@ -16,10 +15,10 @@ class Workshop_fitem {
 			this.lvls = wsfitems.filter(item => item.tag === tr.tag);  //! czasami problem lvls is undefined
 			this.lvl_max = this.lvls.length;
 			if (this.lvl === 1) {
-				this.id = wsf_counter;
+				// this.id = wsf_counter;
 			}
 			else {
-				this.id = this.lvls[0].id;
+				// this.id = this.lvls[0].id;
 				this.handler = this.lvls[0].handler;
 			}
 		}, 0);
@@ -158,7 +157,8 @@ class Workshop_fitem {
 					tr.bought = true;
 					_peppercoins -= tr.price;
 					update_coins();
-					tr.refers().update_meter();
+					
+					tr.refers().update_meter(tr);
 
 					tr.lvls.map(item => {
 						item.lvl_now++;

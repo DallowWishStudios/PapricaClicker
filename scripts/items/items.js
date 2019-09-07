@@ -8,7 +8,7 @@ var items = [
 	new Item(6, 'Piłka do metalu', 90, 'Przydatna do cięcia niewielkich metalowych przedmiotów ale nie tak praktyczna w zbieraniu papryki. ', 'pilka_do_metalu.png', 1.07, "pila", 1, 8),
 	new Item(7, 'Szabla', 880, 'Była używana przez szlachtę do samoobrony i przekazywana z pokolenia na pokolenie. ', 'szabla.png', 1.12, "miecz", 1, 12),
 	new Item(8, 'Bokken', 220, 'Drewniana katana do ćwiczeń. Niezbyt przydatna na polu papryki. ', 'bokken.png', 1.01, "katana", 1, 14),
-	new Item(9, 'Toporek awaryjny', 300, 'Przydatny do rozbijania szyb i innych materiałów w razie pożaru. Aby użyć rozbij szybkę.', 'bokken.png', 1.04, "topor", 1, 17),
+	new Item(9, 'Toporek awaryjny', 260, 'Przydatny do rozbijania szyb i innych materiałów w razie pożaru. Aby użyć rozbij szybkę.', 'bokken.png', 1.04, "topor", 1, 17),
 ];
 var item_upgrades = [
 	items[0],
@@ -22,7 +22,9 @@ var item_upgrades = [
 	new Item(3, 'Zaawansowany scyzoryk', 40, 'Umożliwia między innymi łatwą nawigację na polu papryki dzięki wbudowanemu kompasowi, obcinanie paznokci czy też otwieranie szampana. ', 'zaawansowany_scyzoryk.png', 1.25, "scyzoryk", 2),
 	new Item(3, 'Ultrascyzoryk', 500, 'Scyzoryk ten zawiera wszystkie możliwe opcje podcinania, stylizacji, wykrawania, modyfikacji, korekty czy komponowania papryki. ', 'ultrascyzoryk.png', 1.3, "scyzoryk", 3),
 	items[3],
-	new Item(4, 'Kosa', 35, 'Jeszcze ostrzejsze narzędzie rolnicze. ', 'kosa.png', 1.35, "sierp", 2),
+	new Item(4, 'Kosa', 45, 'Jeszcze ostrzejsze narzędzie rolnicze. ', 'kosa.png', 1.3, "sierp", 2),
+	new Item(4, 'Kosa bitewna', 140, 'Najostrzejsze narzędzie... nie do końca rolnicze. ', 'kosa_bitewna.png', 1.35, "sierp", 3),
+	new Item(4, 'Kosa dwustronna', 620, 'Epicka dwustronna kosa wojenna. ', 'kosa_dwustronna.png', 1.2, "sierp", 4),
 	items[4],
 	new Item(5, 'Nożyk do obierania', 18, 'Stosowany od wielu pokoleń w tej branży. Nieodłączny atrybut każdego paprykowego bossa. ', 'nozyk_do_obierania.png', 1.1, "noz", 2),
 	new Item(5, 'Nożyk do styropianu', 40, 'Wielofunkcyjny, kompaktowy nożyk używany głównie w budowlance, ale znakomicie sprawuje się pod folią. ', 'nozyk_do_styropianu.png', 1.12, "noz", 3),
@@ -41,6 +43,9 @@ var item_upgrades = [
 	new Item(8, 'Katana', 8000, 'Prawdziwa broń ninja. W rękach doświadczonego paroba może czynić cuda. ', 'katana.png', 1.2, "katana", 2, 14),
 	new Item(8, 'Tęczowa katana', 90000, 'Niezwykle rzadka wariacja katany. Posiada niespotykane właściwości. ', 'teczowa_katana.png', 1.3, "katana", 3, 14),
 	items[8],
-	new Item(9, 'Siekiera', 300, 'Zostań prawdziwym paprykowym drwalem.', 'bokken.png', 1.04, "topor", 1, 17),
-	new Item(9, '', 300, 'Zostań prawdziwym paprykowym drwalem.', 'bokken.png', 1.04, "topor", 1, 17),
+	new Item(9, 'Siekiera', 790, 'Zostań prawdziwym paprykowym drwalem.', 'siekiera.png', 1.18, "topor", 2),
+	new Item(9, 'Profesjonalna siekiera', 1200, 'Mokry sen każdego drwala.', 'profesjonalna_siekiera.png', 1.22, "topor", 3),
+	new Item(9, 'Topór bitewny', 8600, 'Poręczny wojenny topór. Przydatny w razie egzekucji.', 'topor_bitewny.png', 1.34, "topor", 4),
+	new Item(9, 'Topór nordycki', 59700, 'Starożytny topór wojenny. ', 'topor_nordycki.png', 1.42, "topor", 5),
+	new Item(9, 'Stormbreaker', 326000, 'Legendarna broń Thora. Nieprzygotowany parob może mieć trudności z zapanowaniem nad jego mocą.', 'stormbreaker.png', 1.8, "topor", 6),
 ];

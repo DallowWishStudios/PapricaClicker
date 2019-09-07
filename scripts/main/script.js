@@ -1,4 +1,8 @@
-﻿let progress=0;
+﻿const devmode =
+1
+; // 1 = true / 0 - false
+
+let progress=0;
 let _peppercoins=0;
 let _pepper=0;
 let reszta=0;
@@ -64,16 +68,17 @@ let tooltip_std;
 
 const c_expand_ws_button = document.getElementById('exp_ws_btn');
 
+const c_header = document.querySelector('#header h1');
+
 const game = {
-	version: 'alpha 0.4.3',
-	devmode: false,
+	version: 'alpha 0.4.4',
+	devmode: devmode,
+
 	caprica: ()=>{
 		const chance = 12;
 		const random = Math.floor(Math.random()*chance+1);
 
 		if(random===chance){ 
-
-			const c_header = document.querySelector('#header h1');
 
 			c_header.innerHTML = 'Caprica Plicker';
 			
@@ -90,10 +95,27 @@ const game = {
 
 		version_elements.map(el => el.appendChild(document.createTextNode(this.version)));
 
-		if(this.devmode) _wydajnosc = 10000000;
-		else _wydajnosc = 100;
-
 		this.caprica();
+
+		if(this.devmode){
+			_wydajnosc = 10000000;
+
+			const dev_col = '#1e6cac';
+
+			c_header.textContent += ' [dev]';
+
+			const c_load_title = document.getElementById('title');
+			const c_loading_bg = document.getElementById('main_loading');
+		
+			c_load_title.textContent += '[dev]';
+			c_loading_bg.style.setProperty('background-color', dev_col, 'important');
+
+			setTimeout(()=>{
+				c_header.parentElement.style.setProperty('background-color', dev_col, 'important');
+			}, 500);
+			
+		}
+		else _wydajnosc = 100;
 	},
 };
 
@@ -466,6 +488,7 @@ class Setting {
 		this.window.style.transform = "";
 		this.window.style.opacity = "1";
 		this.window.style.pointerEvents = "";
+		this.window.style.zIndex = '10';
 		this.opened = true;
 		if(this.id === 2){ // update space when space settings opened
 			update_space();
@@ -480,6 +503,7 @@ class Setting {
 		this.window.style.transform = "translateY(20px)";
 		this.window.style.pointerEvents = "none";
 		this.window.style.opacity = "0";
+		this.window.style.zIndex = '';
 		this.opened = false;
 	}
 }

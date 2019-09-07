@@ -34,6 +34,7 @@ class Factory_item {
 
 				<div class="item_stats">
 					<i class="fas fa-cog"></i> +<span class="stat">${this.prod}</span>/s
+					<span class='upgrades'></span>
 				</div>
 
 				<div class="item_control">
@@ -117,7 +118,7 @@ class Factory_item {
 			return price; //zwraca cene po 10x kupnie
 	}
 
-	update_meter(){
+	update_meter(wsfitem){
 		const c_count = this.handler.querySelector(".count");
 		const c_prod = this.handler.querySelector(".production");
 		const c_price = this.handler.querySelector(".item_price");
@@ -125,5 +126,29 @@ class Factory_item {
 		c_count.innerHTML = this.amount;
 		c_prod.innerHTML = Math.round((this.prod * this.amount) * 10) / 10;
 		c_price.innerHTML = Math.round(this.price);
+
+		if(wsfitem){
+			const c_upgrades = this.handler.querySelector(".item_stats .upgrades");
+
+			const images = c_upgrades.querySelectorAll('img');
+			
+			for(let i=0; i<images.length; i++){
+				const image = images[i];
+
+				if(image.dataset.tag === wsfitem.tag){
+					image.remove();
+				}		
+			}
+
+			let frag = document.createDocumentFragment();
+
+			const img = document.createElement('img');
+			img.src = `txt/items/workshop_factory/${wsfitem.img}`;
+			img.dataset.tag = wsfitem.tag;
+
+			frag.appendChild(img)
+
+			c_upgrades.appendChild(frag);
+		}
 	}
 }
