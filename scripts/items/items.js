@@ -47,5 +47,5 @@ var item_upgrades = [
 	new Item(9, 'Profesjonalna siekiera', 1200, 'Mokry sen każdego drwala.', 'profesjonalna_siekiera.png', 1.22, "topor", 3),
 	new Item(9, 'Topór bitewny', 8600, 'Poręczny wojenny topór. Przydatny w razie egzekucji.', 'topor_bitewny.png', 1.34, "topor", 4),
 	new Item(9, 'Topór nordycki', 59700, 'Starożytny topór wojenny. ', 'topor_nordycki.png', 1.42, "topor", 5),
-	new Item(9, 'Stormbreaker', 326000, 'Legendarna broń Thora. Nieprzygotowany parob może mieć trudności z zapanowaniem nad jego mocą.', 'stormbreaker.png', 1.8, "topor", 6),
+	new Item(9, 'Stormbreaker', 600000, 'Legendarna broń Thora. Nieprzygotowany parob może mieć trudności z zapanowaniem nad jego mocą.', 'stormbreaker.png', 1.8, "topor", 6),
 ];
