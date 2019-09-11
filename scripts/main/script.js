@@ -394,7 +394,7 @@ class Sw{
 
 		switch (this.id) {
 			case 1:{
-				set_theme('rgb(180, 0, 0)', 'rgb(140, 0, 0)', '#0002');
+				set_theme('rgb(180, 0, 0)', 'rgb(140, 0, 0)', '#0002', 'rgba(180, 0, 0, .5)');
 				break;
 			}
 			case 2:{
@@ -404,6 +404,11 @@ class Sw{
 			case 3:{
 				
 				cursed_on();
+				break;
+			}
+			case 4:{
+				if(ukr_theme_unlocked)
+					set_theme('rgb(43, 135, 210)', 'rgb(218, 194, 40)', 'rgb(43, 135, 210)', 'rgb(43, 135, 210)');
 				break;
 			}
 		
@@ -433,6 +438,7 @@ let theme_switches = [
 	new Sw(document.querySelectorAll('.theme_piece')[0], document.querySelectorAll('.theme_piece')[0].querySelector('.setting_switch'), true),
 	new Sw(document.querySelectorAll('.theme_piece')[1], document.querySelectorAll('.theme_piece')[1].querySelector('.setting_switch'), true),
 	new Sw(document.querySelectorAll('.theme_piece')[2], document.querySelectorAll('.theme_piece')[2].querySelector('.setting_switch'), true),
+	new Sw(document.querySelectorAll('.theme_piece')[3], document.querySelectorAll('.theme_piece')[3].querySelector('.setting_switch'), true),
 ];
 
 function set_theme(header_color, body_color, footer_color, stts_color){
@@ -598,7 +604,7 @@ const body = document.querySelector("body").style;
 const stts = document.getElementById("stats").style;
 const footer = document.querySelector("footer").style;
 
-const secret_theme_switch = document.getElementById("secret_theme_switch").style;
+const secret_theme_switch = document.getElementById("secret_theme_switch");
 const secret_theme_text = document.getElementById("secret_theme_text");
 
 let rainbow_timeout = 0;
@@ -718,7 +724,7 @@ function cclick() {
 		if(times_clicked >= 6 && !cursed){
 			
 			theme_switches[2].switch_on_cursed();
-			secret_theme_switch.color = 'red';
+			secret_theme_switch.style.color = 'red';
 			secret_theme_text.innerHTML = 'Papryka ciemności';
 			cursed_unlocked = true;
 			cursed_on();
@@ -741,6 +747,8 @@ function cclick() {
 
 function cursed_on(){
 	if(!cursed && cursed_unlocked){
+
+		secret_theme_switch.classList.remove('secret_theme');
 
 		cursed = true;
 

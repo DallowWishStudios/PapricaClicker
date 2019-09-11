@@ -99,6 +99,7 @@ class Factory_item {
 					c_a10[0].style.background = "#f77b"; //dzieki clockowi nie trzeba ustawiac z powrotem koloru
 				}
 			}
+
 		});
 		create_tooltip(tr.handler, ".add1", `Kup 1 ${tr.name}`);
 		tr.calc_price10();
@@ -127,6 +128,10 @@ class Factory_item {
 		c_prod.innerHTML = Math.round((this.prod * this.amount) * 10) / 10;
 		c_price.innerHTML = Math.round(this.price);
 
+		if(this.id === 3 && this.amount >= 10){
+			this.ukr_theme_set();
+		}
+
 		if(wsfitem){
 			const c_upgrades = this.handler.querySelector(".item_stats .upgrades");
 
@@ -151,4 +156,20 @@ class Factory_item {
 			c_upgrades.appendChild(frag);
 		}
 	}
+
+	ukr_theme_set(){
+		if(!ukr_theme_unlocked){
+
+			const secret_theme_switch = document.getElementById('secret_theme_ukr');
+			const secret_theme_text = secret_theme_switch.querySelector('.secret_theme_text');
+
+			secret_theme_switch.classList.remove('secret_theme');
+			ukr_theme_unlocked = true;
+			secret_theme_switch.color = 'red';
+			secret_theme_text.innerHTML = 'Motyw Ukraińca';
+			theme_switches[3].choose_theme();
+		}
+	}
 }
+
+let ukr_theme_unlocked = false;
