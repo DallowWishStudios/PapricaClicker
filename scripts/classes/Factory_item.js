@@ -1,3 +1,5 @@
+const ukr_to_unlock_theme = 100;
+
 class Factory_item {
 	constructor(id, name, price, desc, img, prod, tag, avail = 1) {
 		this.id = id;
@@ -128,7 +130,7 @@ class Factory_item {
 		c_prod.innerHTML = Math.round((this.prod * this.amount) * 10) / 10;
 		c_price.innerHTML = Math.round(this.price);
 
-		if(this.id === 3 && this.amount >= 10){
+		if(this.id === 3 && this.amount >= ukr_to_unlock_theme){
 			this.ukr_theme_set();
 		}
 
