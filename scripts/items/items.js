@@ -8,7 +8,7 @@ var items = [
 	new Item(6, 'Piłka do metalu', 90, 'Przydatna do cięcia niewielkich metalowych przedmiotów ale nie tak praktyczna w zbieraniu papryki. ', 'pilka_do_metalu.png', 1.07, "pila", 1, 8),
 	new Item(7, 'Szabla', 880, 'Była używana przez szlachtę do samoobrony i przekazywana z pokolenia na pokolenie. ', 'szabla.png', 1.12, "miecz", 1, 12),
 	new Item(8, 'Bokken', 220, 'Drewniana katana do ćwiczeń. Niezbyt przydatna na polu papryki. ', 'bokken.png', 1.01, "katana", 1, 14),
-	new Item(9, 'Toporek awaryjny', 260, 'Przydatny do rozbijania szyb i innych materiałów w razie pożaru. Aby użyć rozbij szybkę.', 'bokken.png', 1.04, "topor", 1, 17),
+	new Item(9, 'Toporek awaryjny', 260, 'Przydatny do rozbijania szyb i innych materiałów w razie pożaru. Aby użyć rozbij szybkę.', 'toporek.png', 1.04, "topor", 1, 17),
 ];
 var item_upgrades = [
 	items[0],
