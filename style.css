@@ -479,6 +479,7 @@ main {
 	transform: translateY(10px);
 	display: inline-block;
 	max-width: 300px;
+	color: black;
 }
 
 #tooltips {

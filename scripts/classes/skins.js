@@ -63,10 +63,6 @@
             this.active = false;
         },
 
-        // lock(){
-        //     this.c_locked.display = flex;
-        // },
-
         unlock(){
             if(this.locked){
                 this.c_locked.remove();
@@ -89,15 +85,7 @@
     // objects creating
 
     const peppers = window.peppers(Pepper);
-
-    // const peppers = [
-    //     Pepper('Czerwona papryka', 'Legendarna potworowska czerwona papryka. ', 'red.png', 1),
-    //     Pepper('Żółta papryka', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores, iste. Nulla alias officia itaque nesciunt fugit quibusdam recusandae', 'yellow.png', 1.1, 5),
-    //     Pepper('Zielona papryka', 'blah', 'green.png', 1.15, 7),
-    //     Pepper('Papryczka Chilli', 'blah', 'chilli.png', 1.4, 10),
-    // ];
     
-    ///////////////////////////////////////////////////////////////////////////
     // functions
 
     const classes = ['item_locked', 'img','name','bonus','desc'];
@@ -193,8 +181,7 @@
             clicked_item.activate();
         }
     });
-
-    // peppers[0].activate();
+    
     peppers[0].unlock();
     
     global.peppers_to_unlock = () => {

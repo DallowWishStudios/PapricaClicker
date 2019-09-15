@@ -131,7 +131,7 @@ class Factory_item {
 		c_price.innerHTML = Math.round(this.price);
 
 		if(this.id === 3 && this.amount >= ukr_to_unlock_theme){
-			this.ukr_theme_set();
+			ukr_theme_set();
 		}
 
 		if(wsfitem){
@@ -158,20 +158,19 @@ class Factory_item {
 			c_upgrades.appendChild(frag);
 		}
 	}
-
-	ukr_theme_set(){
-		if(!ukr_theme_unlocked){
-
-			const secret_theme_switch = document.getElementById('secret_theme_ukr');
-			const secret_theme_text = secret_theme_switch.querySelector('.secret_theme_text');
-
-			secret_theme_switch.classList.remove('secret_theme');
-			ukr_theme_unlocked = true;
-			secret_theme_switch.color = 'red';
-			secret_theme_text.innerHTML = 'Motyw Ukraińca';
-			theme_switches[3].choose_theme();
-		}
-	}
 }
 
-let ukr_theme_unlocked = false;
+const ukr_theme_set = ()=>{
+	if(!theme_switches[3].unlocked){
+
+		const secret_theme_switch = document.getElementById('secret_theme_ukr');
+		const secret_theme_text = secret_theme_switch.querySelector('.secret_theme_text');
+
+		secret_theme_switch.classList.remove('secret_theme');
+		theme_switches[3].unlocked = true;
+		secret_theme_switch.color = 'red';
+		secret_theme_text.innerHTML = 'Barszcz Ukraiński';
+		theme_switches[3].choose_theme();
+		theme_switches[3].switch_switches();
+	}
+}

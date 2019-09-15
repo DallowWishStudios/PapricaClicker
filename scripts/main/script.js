@@ -1,4 +1,4 @@
-﻿const devmode =
+﻿let devmode =
 1
 ; // 1 = true / 0 - false
 
@@ -72,7 +72,45 @@ const c_header = document.querySelector('#header h1');
 
 const game = {
 	version: 'alpha 0.4.4',
-	devmode: devmode,
+	// devmode: devmode,
+	header_content: 'Paprica Clicker',
+	first_time: true,
+
+	set devmode(active){
+		if(active){
+			_wydajnosc = 10000000;
+
+			const dev_col = '#1e6cac';
+
+			c_header.textContent += ' [dev]';
+
+			const c_load_title = document.getElementById('title');
+			const c_loading_bg = document.getElementById('main_loading');
+			
+			if(c_load_title && c_loading_bg){
+				c_load_title.textContent += '[dev]';
+				c_loading_bg.style.setProperty('background-color', dev_col, 'important');
+			}
+
+			setTimeout(()=>{
+				c_header.parentElement.style.setProperty('background-color', dev_col, 'important');
+			}, 500);
+		} else {
+			if(!this.first_time){
+				_wydajnosc = 100;
+
+				c_header.textContent = this.header_content;
+
+				const default_switch = theme_switches[localStorage.getItem('theme')-1];
+				
+				if(default_switch){
+					default_switch.choose_theme();
+					default_switch.switch_switches();
+				}
+			}
+		}
+		this.first_time = false;
+	},
 
 	caprica: ()=>{
 		const chance = 12;
@@ -80,7 +118,8 @@ const game = {
 
 		if(random===chance){ 
 
-			c_header.innerHTML = 'Caprica Plicker';
+			this.header_content = 'Caprica Plicker';
+			c_header.innerHTML = this.header_content;
 			
 			return true;
 		}
@@ -95,27 +134,9 @@ const game = {
 
 		version_elements.map(el => el.appendChild(document.createTextNode(this.version)));
 
+		this.devmode = devmode;
+
 		this.caprica();
-
-		if(this.devmode){
-			_wydajnosc = 10000000;
-
-			const dev_col = '#1e6cac';
-
-			c_header.textContent += ' [dev]';
-
-			const c_load_title = document.getElementById('title');
-			const c_loading_bg = document.getElementById('main_loading');
-		
-			c_load_title.textContent += '[dev]';
-			c_loading_bg.style.setProperty('background-color', dev_col, 'important');
-
-			setTimeout(()=>{
-				c_header.parentElement.style.setProperty('background-color', dev_col, 'important');
-			}, 500);
-			
-		}
-		else _wydajnosc = 100;
 	},
 };
 
@@ -337,12 +358,13 @@ sw_id = 0;
 
 class Sw{
 
-	constructor(line, sw, one_at_once = false){
+	constructor(line, sw, one_at_once = false, unlocked = true){
 		this.id = sw_id++;
 
 		this.line = line;
-		this.sw = sw;
+		this.c_switch = sw;
 		this.one_at_once = one_at_once;
+		this.unlocked = unlocked;
 
 		this.opened = true;
 
@@ -357,7 +379,7 @@ class Sw{
 				this.close();
 
 			} else {
-				this.switch_switches();
+				if(this.unlocked) this.switch_switches();
 			}
 		});
 	}
@@ -372,7 +394,7 @@ class Sw{
 
 			this.opened = true;
 			setTimeout(() => {
-				this.sw.innerHTML = '<i class="fas fa-toggle-on"></i>';
+				this.c_switch.innerHTML = '<i class="fas fa-toggle-on"></i>';
 			}, 0);
 
 		} else if(cursed_unlocked){
@@ -384,7 +406,7 @@ class Sw{
 	close(){
 		this.opened = false;
 		setTimeout(() => {
-			this.sw.innerHTML = '<i class="fas fa-toggle-off"></i>';
+			this.c_switch.innerHTML = '<i class="fas fa-toggle-off"></i>';
 		}, 0);
 	}
 
@@ -402,12 +424,11 @@ class Sw{
 				break;
 			}
 			case 3:{
-				
 				cursed_on();
 				break;
 			}
 			case 4:{
-				if(ukr_theme_unlocked)
+				if(this.unlocked)
 					set_theme('rgb(43, 135, 210)', 'rgb(218, 194, 40)', 'rgb(43, 135, 210)', 'rgb(43, 135, 210)');
 				break;
 			}
@@ -425,7 +446,7 @@ class Sw{
 
 		this.opened = true;
 		setTimeout(() => {
-			this.sw.innerHTML = '<i class="fas fa-toggle-on"></i>';
+			this.c_switch.innerHTML = '<i class="fas fa-toggle-on"></i>';
 		}, 0);
 	}
 }
@@ -438,7 +459,7 @@ let theme_switches = [
 	new Sw(document.querySelectorAll('.theme_piece')[0], document.querySelectorAll('.theme_piece')[0].querySelector('.setting_switch'), true),
 	new Sw(document.querySelectorAll('.theme_piece')[1], document.querySelectorAll('.theme_piece')[1].querySelector('.setting_switch'), true),
 	new Sw(document.querySelectorAll('.theme_piece')[2], document.querySelectorAll('.theme_piece')[2].querySelector('.setting_switch'), true),
-	new Sw(document.querySelectorAll('.theme_piece')[3], document.querySelectorAll('.theme_piece')[3].querySelector('.setting_switch'), true),
+	new Sw(document.querySelectorAll('.theme_piece')[3], document.querySelectorAll('.theme_piece')[3].querySelector('.setting_switch'), true, false),
 ];
 
 function set_theme(header_color, body_color, footer_color, stts_color){
@@ -888,10 +909,14 @@ function unlock_item(unlck){
 	//bez transition znika natychmiast
 }
 
+const default_switch = theme_switches[localStorage.getItem('theme')-1];
+
+
+
 if(localStorage.length){
 
-	theme_switches[localStorage.getItem('theme')-1].choose_theme();
-	theme_switches[localStorage.getItem('theme')-1].switch_switches();
+	default_switch.choose_theme();
+	default_switch.switch_switches();
 }	
 
 //////////////////////////workshop build
