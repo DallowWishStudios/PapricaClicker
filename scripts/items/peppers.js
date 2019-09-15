@@ -14,7 +14,7 @@ window.peppers = (Pepper) => {
         // Pepper('Yucatan Habanero', 'Niebywale ostra meksykańska papryka. Podczas jedzenia należy zachować ostrożność.', 'habanero.png', 2.4, 25),
         // Pepper('Trynidad Douglah', 'Ma czekoladowy kolor, ale jest piekielnie ostra.', 'habanero.png', 2.4, 25),
         Pepper('Carolina Reaper', "Niewyobrażalnie ostra, ponad 2 miliony w skali Scoville'a.", 'carolina_reaper.png', 12, 50),
-        // Pepper('Papryka oddech smoka', 'Jej jedzenie grozi śmiercią!', 'habanero.png', 2.4, 25),
+        Pepper('Papryka oddech smoka', 'Jej jedzenie grozi śmiercią!', 'dragons_breath.png', 24, 60),
         Pepper('Pepper X', 'Najostrzejsza papryka na świecie - ponad 3 miliony Scovillów. Tylko nieliczni odważyli się jej spróbować!', 'pepper_x.png', 100, 100),
     ];
 };

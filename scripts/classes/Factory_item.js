@@ -1,3 +1,5 @@
+const ukr_to_unlock_theme = 100;
+
 class Factory_item {
 	constructor(id, name, price, desc, img, prod, tag, avail = 1) {
 		this.id = id;
@@ -34,6 +36,7 @@ class Factory_item {
 
 				<div class="item_stats">
 					<i class="fas fa-cog"></i> +<span class="stat">${this.prod}</span>/s
+					<span class='upgrades'></span>
 				</div>
 
 				<div class="item_control">
@@ -98,6 +101,7 @@ class Factory_item {
 					c_a10[0].style.background = "#f77b"; //dzieki clockowi nie trzeba ustawiac z powrotem koloru
 				}
 			}
+
 		});
 		create_tooltip(tr.handler, ".add1", `Kup 1 ${tr.name}`);
 		tr.calc_price10();
@@ -117,7 +121,7 @@ class Factory_item {
 			return price; //zwraca cene po 10x kupnie
 	}
 
-	update_meter(){
+	update_meter(wsfitem){
 		const c_count = this.handler.querySelector(".count");
 		const c_prod = this.handler.querySelector(".production");
 		const c_price = this.handler.querySelector(".item_price");
@@ -125,5 +129,48 @@ class Factory_item {
 		c_count.innerHTML = this.amount;
 		c_prod.innerHTML = Math.round((this.prod * this.amount) * 10) / 10;
 		c_price.innerHTML = Math.round(this.price);
+
+		if(this.id === 3 && this.amount >= ukr_to_unlock_theme){
+			ukr_theme_set();
+		}
+
+		if(wsfitem){
+			const c_upgrades = this.handler.querySelector(".item_stats .upgrades");
+
+			const images = c_upgrades.querySelectorAll('img');
+			
+			for(let i=0; i<images.length; i++){
+				const image = images[i];
+
+				if(image.dataset.tag === wsfitem.tag){
+					image.remove();
+				}		
+			}
+
+			let frag = document.createDocumentFragment();
+
+			const img = document.createElement('img');
+			img.src = `txt/items/workshop_factory/${wsfitem.img}`;
+			img.dataset.tag = wsfitem.tag;
+
+			frag.appendChild(img)
+
+			c_upgrades.appendChild(frag);
+		}
+	}
+}
+
+const ukr_theme_set = ()=>{
+	if(!theme_switches[3].unlocked){
+
+		const secret_theme_switch = document.getElementById('secret_theme_ukr');
+		const secret_theme_text = secret_theme_switch.querySelector('.secret_theme_text');
+
+		secret_theme_switch.classList.remove('secret_theme');
+		theme_switches[3].unlocked = true;
+		secret_theme_switch.color = 'red';
+		secret_theme_text.innerHTML = 'Barszcz Ukraiński';
+		theme_switches[3].choose_theme();
+		theme_switches[3].switch_switches();
 	}
 }
