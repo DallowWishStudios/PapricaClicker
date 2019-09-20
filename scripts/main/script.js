@@ -209,6 +209,15 @@ const game = {
 				setTimeout(()=>output('Rynek Potworowski płonie.'),10000);
 				setTimeout(()=>output('Stan wyjątkowy w mocarstwie Dłuska Wola ogłoszony.'),13000);
 			break;
+			case (command.match(/^prod\s*\d$/) || {}).input:
+
+				const lvl_raw = command.match(/\d/);
+				const lvl = parseInt(lvl_raw[0]);
+				
+				pc_production = Math.pow(15, lvl);
+
+				output('produkcja papryki to teraz 15^'+lvl);
+			break;
 			default:
 			break;
 		}
