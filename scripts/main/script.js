@@ -911,9 +911,7 @@ function unlock_item(unlck){
 
 const default_switch = theme_switches[localStorage.getItem('theme')-1];
 
-
-
-if(localStorage.length){
+if(localStorage.getItem('theme')){
 
 	default_switch.choose_theme();
 	default_switch.switch_switches();
