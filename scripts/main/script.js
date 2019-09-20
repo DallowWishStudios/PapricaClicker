@@ -1,5 +1,5 @@
 ﻿let devmode =
-1
+0
 ; // 1 = true / 0 - false
 
 let progress=0;
@@ -71,10 +71,11 @@ const c_expand_ws_button = document.getElementById('exp_ws_btn');
 const c_header = document.querySelector('#header h1');
 
 const game = {
-	version: 'alpha 0.4.4',
+	version: 'alpha 0.4.4.1',
 	// devmode: devmode,
 	header_content: 'Paprica Clicker',
 	first_time: true,
+	devmode_bool: false,
 
 	set devmode(active){
 		if(active){
@@ -94,7 +95,9 @@ const game = {
 
 			setTimeout(()=>{
 				c_header.parentElement.style.setProperty('background-color', dev_col, 'important');
-			}, 500);
+			}, 100);
+
+			this.devmode_bool = true;
 		} else {
 			if(!this.first_time){
 				_wydajnosc = 100;
@@ -107,9 +110,15 @@ const game = {
 					default_switch.choose_theme();
 					default_switch.switch_switches();
 				}
+
+				this.devmode_bool = false;
 			}
 		}
 		this.first_time = false;
+	},
+	
+	get devmode(){
+		return this.devmode_bool;
 	},
 
 	caprica: ()=>{
@@ -137,7 +146,73 @@ const game = {
 		this.devmode = devmode;
 
 		this.caprica();
+
+		const c_command_form = document.getElementById('command_form');
+
+		c_command_form.addEventListener('submit', e => {
+			e.preventDefault();
+
+			this.handle_command();
+		});
 	},
+
+	handle_command(){
+		const cmd = document.getElementById('command_line').value;
+		let command = cmd.trim().toLowerCase();
+		const c_command_output = document.getElementById('command_output');
+
+		const output = (text) => {
+			
+			const frag = document.createDocumentFragment();
+			const text_node = document.createTextNode(text);
+			const br = document.createElement('br');
+
+			const system = document.createElement('span');
+			system.appendChild(document.createTextNode('System: '));
+			system.classList.add('b');
+
+			frag.appendChild(system);
+			frag.appendChild(text_node, br);
+			frag.appendChild(br);
+
+			c_command_output.appendChild(frag);
+
+			c_command_output.scrollTop = c_command_output.scrollHeight;
+		};
+		
+		switch (command) {
+			case 'devmode':
+				if(this.devmode){
+					this.devmode = false;
+					output('Devmode dezaktywowany');	 
+				} else {
+					this.devmode = true;
+					output('Devmode aktywowany');
+				}
+			break;
+			case 'tak':
+			case 'nie':
+				output('uh');
+			break;
+			case 'radzina':
+			case 'radzinka':
+			case 'radzio':
+			case 'radosław':
+			case 'radoslaw':
+			case 'radek':
+				output('Przeciążenie systemu. Restart za: 3...');
+				setTimeout(()=>output('2...'),1000);
+				setTimeout(()=>output('1...'),2000);
+				setTimeout(()=>output('0...'),3000);
+				setTimeout(()=>output('Restart nieudany. System nie jest w stanie zapanować nad tak dużą ilością mocy.'),4000);
+				setTimeout(()=>output('Paroby uciekają z lochów, krasnale ogrodowe stoją i się patrzą, a wali pachnie.'),7000);
+				setTimeout(()=>output('Rynek Potworowski płonie.'),10000);
+				setTimeout(()=>output('Stan wyjątkowy w mocarstwie Dłuska Wola ogłoszony.'),13000);
+			break;
+			default:
+			break;
+		}
+	}
 };
 
 game.init();
@@ -911,9 +986,7 @@ function unlock_item(unlck){
 
 const default_switch = theme_switches[localStorage.getItem('theme')-1];
 
-
-
-if(localStorage.length){
+if(localStorage.getItem('theme')){
 
 	default_switch.choose_theme();
 	default_switch.switch_switches();

@@ -6,12 +6,13 @@
 	<link rel="stylesheet" href="style.css">
 	<!--<link rel="icon" type="image/png" href="txt/favicon-32x32.png" sizes="32x32" />-->
 	<link rel="icon" type="image/png" href="txt/favicon.png" sizes="32x32" />
-	<link href="http://fonts.googleapis.com/css?family=Quicksand:400,700&amp;subset=latin-ext" rel="stylesheet" type='text/css'>
+	<link href="https://fonts.googleapis.com/css?family=Quicksand:400,700&amp;subset=latin-ext" rel="stylesheet" type='text/css'>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 	<meta charset='utf-8'>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",>
 	<meta name='keywords' content='papricaclicker,paprica,clicker,pepper,papryka,kliker,gra'>
 	<meta name='description' content='Paprica Clicker - gra dla każdego paprykowego plantatora! Przeżyj niezapomnianą przygodę z parobami u boku i stań się sławnym plantatorem papryki.'>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <head>
 
 <body>
@@ -419,20 +420,30 @@
 
 				<div class="settings_content">
 
-					<div class="setting theme_piece">
-						Paprykowa czerwień <span class='setting_switch'><i class="fas fa-toggle-on"></i></span>
+					<div id='themes'>
+						<div class="setting theme_piece">
+							Paprykowa czerwień <span class='setting_switch'><i class="fas fa-toggle-on"></i></span>
+						</div>
+
+						<div class="setting theme_piece">
+							Papryka podsuszana <span class='setting_switch'><i class="fas fa-toggle-off"></i></span>
+						</div>
+
+						<div class="setting theme_piece secret_theme" id='secret_theme_switch'>
+							<span id='secret_theme_text'>???</span> <span class='setting_switch'><i class="fas fa-toggle-off"></i></span>
+						</div>
+
+						<div class="setting theme_piece secret_theme" id='secret_theme_ukr'>
+							<span class='secret_theme_text'>???</span> <span class='setting_switch'><i class="fas fa-toggle-off"></i></span>
+						</div>
 					</div>
 
-					<div class="setting theme_piece">
-						Papryka podsuszana <span class='setting_switch'><i class="fas fa-toggle-off"></i></span>
-					</div>
-
-					<div class="setting theme_piece secret_theme" id='secret_theme_switch'>
-						<span id='secret_theme_text'>???</span> <span class='setting_switch'><i class="fas fa-toggle-off"></i></span>
-					</div>
-
-					<div class="setting theme_piece secret_theme" id='secret_theme_ukr'>
-						<span class='secret_theme_text'>???</span> <span class='setting_switch'><i class="fas fa-toggle-off"></i></span>
+					<div id="commands">
+						<form id='command_form'>
+							<input type="text" id='command_line'>
+							<input type="submit" id='submit_command' value='>'>
+						</form>
+						<span id="command_output"></span>
 					</div>
 
 				</div>

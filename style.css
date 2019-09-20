@@ -300,6 +300,52 @@ main {
 	padding: 0 4px;
 }
 
+#commands {
+	margin-top: 4px;
+}
+
+#command_line {
+	width: 100%;
+	margin-bottom: 4px;
+	flex: 7;
+}
+
+#command_output {
+	display: inline-block;
+	max-height: 3.5em;
+	overflow: auto;
+	font-size: 0.8em;
+	width: 100%;
+}
+
+#command_form {
+	display: flex;
+}
+
+#command_line, #submit_command {
+	border: 2px solid red;
+	border-radius: 5px;
+	background-color: none;
+	height: 26px;
+	transition: all 0.2s cubic-bezier(.22,.61,.36,1);
+}
+
+#command_line:hover, #submit_command:hover {
+	background-color: rgb(255, 194, 194);
+	cursor: pointer;
+}
+
+#command_line:focus {
+	background-color: rgb(255, 212, 212);
+}
+
+#submit_command {
+	flex: 1;
+	font-weight: bold;
+	color: red;
+	margin-left: 6px;
+}
+
 /*----------------socials-------------*/
 
 .social {
