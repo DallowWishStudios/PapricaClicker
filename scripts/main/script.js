@@ -190,9 +190,15 @@ const game = {
 					output('Devmode aktywowany');
 				}
 			break;
-			case 'tak':
-			case 'nie':
-				output('uh');
+			case 'stod':
+			case 'sashan ivan':
+			case 'sashan':
+				output('Cisza!');
+				const old_bg_col = body.backgroundColor;
+				body.backgroundColor = 'blue';
+				setTimeout(()=>{
+					body.backgroundColor = old_bg_col;
+				},1000);
 			break;
 			case 'radzina':
 			case 'radzinka':
