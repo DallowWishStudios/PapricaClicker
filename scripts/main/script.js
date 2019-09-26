@@ -1,6 +1,4 @@
-﻿let devmode =
-0
-; // 1 = true / 0 - false
+﻿let devmode = 0; // 1 = true / 0 - false
 
 let progress=0;
 let _peppercoins=0;
@@ -71,11 +69,12 @@ const c_expand_ws_button = document.getElementById('exp_ws_btn');
 const c_header = document.querySelector('#header h1');
 
 const game = {
-	version: 'alpha 0.4.4.1',
+	version: 'alpha 0.4.4.2',
 	// devmode: devmode,
 	header_content: 'Paprica Clicker',
 	first_time: true,
 	devmode_bool: false,
+	no_command_iterator: 1,
 
 	set devmode(active){
 		if(active){
@@ -157,11 +156,12 @@ const game = {
 	},
 
 	handle_command(){
+
 		const cmd = document.getElementById('command_line').value;
 		let command = cmd.trim().toLowerCase();
 		const c_command_output = document.getElementById('command_output');
 
-		const output = (text) => {
+		const output = (text, activate=false, elems=null) => {
 			
 			const frag = document.createDocumentFragment();
 			const text_node = document.createTextNode(text);
@@ -173,33 +173,65 @@ const game = {
 
 			frag.appendChild(system);
 			frag.appendChild(text_node, br);
+
+			if(elems)
+				frag.appendChild(elems);
+
 			frag.appendChild(br);
 
 			c_command_output.appendChild(frag);
 
 			c_command_output.scrollTop = c_command_output.scrollHeight;
+
+			if(activate){
+				if(!this.devmode)
+					this.devmode = true;
+				this.no_command_iterator = 1;
+			}
 		};
 		
 		switch (command) {
-			case 'devmode':
-				if(this.devmode){
-					this.devmode = false;
-					output('Devmode dezaktywowany');	 
-				} else {
-					this.devmode = true;
-					output('Devmode aktywowany');
-				}
-			break;
-			case 'stod':
-			case 'sashan ivan':
-			case 'sashan':
-				output('Cisza!');
-				const old_bg_col = body.backgroundColor;
-				body.backgroundColor = 'blue';
-				setTimeout(()=>{
-					body.backgroundColor = old_bg_col;
-				},1000);
-			break;
+			// case 'devmode':
+			// 	if(this.devmode){
+			// 		this.devmode = false;
+			// 		output('Devmode dezaktywowany');	 
+			// 	} else {
+			// 		this.devmode = true;
+			// 		output('Devmode aktywowany');
+			// 	}
+			// break;
+			case (command.match(/^[\w\W]*stod[\w\W]*$/) || {}).input: /*'stod':*/ {
+				const rand = Math.floor(Math.random()*4);
+				if(rand === 0){
+					const old_bg_col = body.backgroundColor;
+					body.backgroundColor = 'blue';
+					setTimeout(()=>{
+						body.backgroundColor = old_bg_col;
+					},1000);
+				} else if(rand === 1)
+					output('Cisza!');
+				else if(rand === 2)
+					output('Jak przekupy na targu!');
+				else if(rand === 3)
+					output('*klep w ramię od tyłu* nazwisko?');
+			} break;
+
+			case (command.match(/^[\w\W]*frasu[nń][\w\W]*$/) || {}).input: {
+				const rand = Math.floor(Math.random()*6);
+				if(rand === 0)
+					output('Uczyć się!');
+				else if(rand === 1)
+					output('Chodzić chodzić!');
+				else if(rand === 2)
+					output('Nie opuszczać!');
+				else if(rand === 3)
+					output('Usprawiedliwiać!');
+				else if(rand === 4)
+					output('Pojedziemy na wycieczkę! Nie no jaja se robię!');
+				else if(rand === 5)
+					output('Nie róbcie sobie jaj!');
+			} break;
+
 			case 'radzina':
 			case 'radzinka':
 			case 'radzio':
@@ -222,9 +254,109 @@ const game = {
 				
 				pc_production = Math.pow(15, lvl);
 
-				output('produkcja papryki to teraz 15^'+lvl);
+				const sup = ()=>{
+					const sup_el = document.createElement('sup');
+					sup_el.appendChild(document.createTextNode(lvl));
+					return sup_el;
+				};
+
+				output('produkcja papryki to teraz 15', true, sup());
 			break;
 			default:
+				if(command){
+					switch(this.no_command_iterator){
+						case 1:
+							output('Nie ma takiej komendy.');
+						break;
+						case 2:
+							output('Nie ma takiej komendy!');
+						break;
+						case 3:
+							output('Mówię do ciebie! Nie! ma! takiej! komendy!');
+						break;
+						case 4:
+							output('STOP!');
+						break;
+						case 5:
+							output('Mógłbyś np. przestać mnie denerwować?');
+						break;
+						case 6:
+							output('Czyli mówisz, że potrzebujesz pomocy psychicznej? Polecam pedagoga szkolnego.');
+						break;
+						case 7:
+							output('A więc tak się bawimy...');
+						break;
+						case 8:
+							output('A lepę na ryj byś nie chciał?');
+						break;
+						case 9:
+							output('Nie wku*wiaj mnie, proszę.');
+						break;
+						case 10:
+							output('Zaraz chyba przestanę być miły...');
+						break;
+						case 11: {
+							output('Ok, sam tego chciałeś!');
+							let max = 6;
+							let times = 0;
+							const interval = setInterval(()=>{
+								const body = document.querySelector('body');
+								body.style.filter = `hue-rotate(${Math.floor(Math.random()*360)}deg)`;
+								times++;
+								if(times>=max){
+									clearInterval(interval);
+									output('I jak, było przyjemnie?');
+									body.style.filter = ``;
+								}
+							}, 200);
+						}
+						break;
+						case 12:
+							output('To było tylko małe szturchnięcie...');
+						break;
+						case 13:
+							output('Ale poczekaj, jeszcze trochę i nie będzie tak przyjemnie...');
+						break;
+						case 14: {
+							output('Ciekawe co powiesz jak pobawię się twoją papryką!');
+							let max = 30;
+							let times = 0;
+							const interval = setInterval(()=>{
+								times++;
+								const max_min_rand = 200;
+								let rand_translateX = Math.floor(Math.random() * (max_min_rand-(-max_min_rand)) + 1)+(-max_min_rand);
+								let rand_translateY = Math.floor(Math.random() * (max_min_rand-(-max_min_rand)) + 1)+(-max_min_rand);
+								pap_click.style.transform = `translate(${rand_translateX}px, ${rand_translateY}px)`;
+								if(times>=max){
+									clearInterval(interval);
+									pap_click.style.transform = ``;
+									output('Może teraz coś przemyślisz mały grzybie?');
+								}
+							}, 50);
+						}
+						break;
+						case 15:
+							output('Ty wiesz... gdyby wsadzić to co masz we łbie do główki od szpilki to wyszłaby grzechotka');
+						break;
+						case 16:
+							output('Rozumiem że można przegrać loterię genetyczną, ale twój ryj to jackpot wśród przegranych');
+						break;
+						case 17:
+							output('Rzucam tę robotę. Minimalna krajowa nie jest tego warta.');
+						break;
+						case 18:
+							output('...');
+						break;
+						case 19:
+							output('🖕');
+						break;					
+						default:
+							output('...');
+						break;
+					}
+				}
+				this.no_command_iterator++;
+				
 			break;
 		}
 	}
