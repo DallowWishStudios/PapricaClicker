@@ -230,6 +230,8 @@ const game = {
 					output('Pojedziemy na wycieczkę! Nie no jaja se robię!');
 				else if(rand === 5)
 					output('Nie róbcie sobie jaj!');
+
+				
 			} break;
 
 			case 'radzina':
@@ -323,7 +325,7 @@ const game = {
 							let times = 0;
 							const interval = setInterval(()=>{
 								times++;
-								const max_min_rand = 200;
+								const max_min_rand = 700;
 								let rand_translateX = Math.floor(Math.random() * (max_min_rand-(-max_min_rand)) + 1)+(-max_min_rand);
 								let rand_translateY = Math.floor(Math.random() * (max_min_rand-(-max_min_rand)) + 1)+(-max_min_rand);
 								pap_click.style.transform = `translate(${rand_translateX}px, ${rand_translateY}px)`;

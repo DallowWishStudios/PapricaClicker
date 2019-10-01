@@ -57,6 +57,11 @@ body{
 	bottom: 0;
 }
 
+#frasun {
+	position: absolute;
+	z-index: 20;
+}
+
 /**********************main loading*******************************/
 
 #main_loading {
