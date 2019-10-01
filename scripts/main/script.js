@@ -200,38 +200,76 @@ const game = {
 			// 		output('Devmode aktywowany');
 			// 	}
 			// break;
-			case (command.match(/^[\w\W]*stod[\w\W]*$/) || {}).input: /*'stod':*/ {
-				const rand = Math.floor(Math.random()*4);
-				if(rand === 0){
-					const old_bg_col = body.backgroundColor;
-					body.backgroundColor = 'blue';
-					setTimeout(()=>{
-						body.backgroundColor = old_bg_col;
-					},1000);
-				} else if(rand === 1)
-					output('Cisza!');
-				else if(rand === 2)
-					output('Jak przekupy na targu!');
-				else if(rand === 3)
-					output('*klep w ramię od tyłu* nazwisko?');
+			case (command.match(/^[\w\W]*stod[\w\W]*$/) || {}).input: {
+				
+				const bullets = [
+					'Cisza!',
+					'Jak przekupy na targu!',
+					'*klep w ramię od tyłu* nazwisko?',
+					()=>{
+						const old_bg_col = body.backgroundColor;
+						body.backgroundColor = 'blue';
+						setTimeout(()=>{
+							body.backgroundColor = old_bg_col;
+						},1000);
+					}
+				];
+
+				const rand = Math.floor(Math.random()*bullets.length);
+				
+				if(typeof bullets[rand] === 'string'){
+					output(bullets[rand]);
+				} else {
+					bullets[rand]();
+				}
 			} break;
 
 			case (command.match(/^[\w\W]*frasu[nń][\w\W]*$/) || {}).input: {
-				const rand = Math.floor(Math.random()*6);
-				if(rand === 0)
-					output('Uczyć się!');
-				else if(rand === 1)
-					output('Chodzić chodzić!');
-				else if(rand === 2)
-					output('Nie opuszczać!');
-				else if(rand === 3)
-					output('Usprawiedliwiać!');
-				else if(rand === 4)
-					output('Pojedziemy na wycieczkę! Nie no jaja se robię!');
-				else if(rand === 5)
-					output('Nie róbcie sobie jaj!');
 
+				const bullets = [
+					'Uczyć się',
+					'Chodzić chodzić!',
+					'Nie opuszczać!',
+					'Usprawiedliwiać!',
+					'Pojedziemy na wycieczkę! Nie no jaja se robię!',
+					'Nie róbcie sobie jaj!',
+					'I pojawia się problem!',
+					()=>{
+						const fra = document.getElementById('frasun');
+
+						fra.classList.add('active');
+						//fra.classList.remove(active);
+						const max_abs_randXY = 700;
+						const max_abs_rotate = 200;
+						const max = 30;
+						let times = 0;
+		
+						const interval = setInterval(()=>{
+							let rand_translateX = Math.floor(Math.random() * (max_abs_randXY-(-max_abs_randXY)) + 1)+(-max_abs_randXY);
+							let rand_translateY = Math.floor(Math.random() * (max_abs_randXY-(-max_abs_randXY)) + 1)+(-max_abs_randXY);
+							let rand_rot = Math.floor(Math.random() * (max_abs_rotate-(-max_abs_rotate)) + 1)+(-max_abs_rotate);
+							fra.style.transform = `translate(${rand_translateX}px, ${rand_translateY}px) rotate(${rand_rot}deg)`;
+							times++;
+		
+							if(times>=max){
+								clearInterval(interval);
+								fra.style.transform = ``;
+								fra.classList.remove('active');
+		
+								
+							}
+						}, 100);
+					}
+				];
+
+				const rand = Math.floor(Math.random()*bullets.length);
 				
+				if(typeof bullets[rand] === 'string'){
+					output(bullets[rand]);
+				} else {
+					bullets[rand]();
+				}
+
 			} break;
 
 			case 'radzina':
