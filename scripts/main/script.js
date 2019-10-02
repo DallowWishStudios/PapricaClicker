@@ -1,6 +1,4 @@
-﻿let devmode =
-1
-; // 1 = true / 0 - false
+﻿﻿let devmode = 0; // 1 = true / 0 - false
 
 let progress=0;
 let _peppercoins=0;
@@ -71,10 +69,12 @@ const c_expand_ws_button = document.getElementById('exp_ws_btn');
 const c_header = document.querySelector('#header h1');
 
 const game = {
-	version: 'alpha 0.4.4',
+	version: 'alpha 0.4.4.2',
 	// devmode: devmode,
 	header_content: 'Paprica Clicker',
 	first_time: true,
+	devmode_bool: false,
+	no_command_iterator: 1,
 
 	set devmode(active){
 		if(active){
@@ -94,7 +94,9 @@ const game = {
 
 			setTimeout(()=>{
 				c_header.parentElement.style.setProperty('background-color', dev_col, 'important');
-			}, 500);
+			}, 100);
+
+			this.devmode_bool = true;
 		} else {
 			if(!this.first_time){
 				_wydajnosc = 100;
@@ -107,9 +109,15 @@ const game = {
 					default_switch.choose_theme();
 					default_switch.switch_switches();
 				}
+
+				this.devmode_bool = false;
 			}
 		}
 		this.first_time = false;
+	},
+	
+	get devmode(){
+		return this.devmode_bool;
 	},
 
 	caprica: ()=>{
@@ -137,7 +145,261 @@ const game = {
 		this.devmode = devmode;
 
 		this.caprica();
+
+		const c_command_form = document.getElementById('command_form');
+
+		c_command_form.addEventListener('submit', e => {
+			e.preventDefault();
+
+			this.handle_command();
+		});
 	},
+
+	handle_command(){
+
+		const cmd = document.getElementById('command_line').value;
+		let command = cmd.trim().toLowerCase();
+		const c_command_output = document.getElementById('command_output');
+
+		const output = (text, activate=false, elems=null) => {
+			
+			const frag = document.createDocumentFragment();
+			const text_node = document.createTextNode(text);
+			const br = document.createElement('br');
+
+			const system = document.createElement('span');
+			system.appendChild(document.createTextNode('System: '));
+			system.classList.add('b');
+
+			frag.appendChild(system);
+			frag.appendChild(text_node, br);
+
+			if(elems)
+				frag.appendChild(elems);
+
+			frag.appendChild(br);
+
+			c_command_output.appendChild(frag);
+
+			c_command_output.scrollTop = c_command_output.scrollHeight;
+
+			if(activate){
+				if(!this.devmode)
+					this.devmode = true;
+				this.no_command_iterator = 1;
+			}
+		};
+		
+		switch (command) {
+			// case 'devmode':
+			// 	if(this.devmode){
+			// 		this.devmode = false;
+			// 		output('Devmode dezaktywowany');	 
+			// 	} else {
+			// 		this.devmode = true;
+			// 		output('Devmode aktywowany');
+			// 	}
+			// break;
+			case (command.match(/^[\w\W]*stod[\w\W]*$/) || {}).input: {
+				
+				const bullets = [
+					'Cisza!',
+					'Jak przekupy na targu!',
+					'*klep w ramię od tyłu* nazwisko?',
+					()=>{
+						const old_bg_col = body.backgroundColor;
+						body.backgroundColor = 'blue';
+						setTimeout(()=>{
+							body.backgroundColor = old_bg_col;
+						},1000);
+					}
+				];
+
+				const rand = Math.floor(Math.random()*bullets.length);
+				
+				if(typeof bullets[rand] === 'string'){
+					output(bullets[rand]);
+				} else {
+					bullets[rand]();
+				}
+			} break;
+
+			case (command.match(/^[\w\W]*frasu[nń][\w\W]*$/) || {}).input: {
+
+				const bullets = [
+					'Uczyć się',
+					'Chodzić chodzić!',
+					'Nie opuszczać!',
+					'Usprawiedliwiać!',
+					'Pojedziemy na wycieczkę! Nie no jaja se robię!',
+					'Nie róbcie sobie jaj!',
+					'I pojawia się problem!',
+					()=>{
+						const fra = document.getElementById('frasun');
+
+						fra.classList.add('active');
+						//fra.classList.remove(active);
+						const max_abs_randXY = 700;
+						const max_abs_rotate = 200;
+						const max = 30;
+						let times = 0;
+		
+						const interval = setInterval(()=>{
+							let rand_translateX = Math.floor(Math.random() * (max_abs_randXY-(-max_abs_randXY)) + 1)+(-max_abs_randXY);
+							let rand_translateY = Math.floor(Math.random() * (max_abs_randXY-(-max_abs_randXY)) + 1)+(-max_abs_randXY);
+							let rand_rot = Math.floor(Math.random() * (max_abs_rotate-(-max_abs_rotate)) + 1)+(-max_abs_rotate);
+							fra.style.transform = `translate(${rand_translateX}px, ${rand_translateY}px) rotate(${rand_rot}deg)`;
+							times++;
+		
+							if(times>=max){
+								clearInterval(interval);
+								fra.style.transform = ``;
+								fra.classList.remove('active');
+		
+								
+							}
+						}, 100);
+					}
+				];
+
+				const rand = Math.floor(Math.random()*bullets.length);
+				
+				if(typeof bullets[rand] === 'string'){
+					output(bullets[rand]);
+				} else {
+					bullets[rand]();
+				}
+
+			} break;
+
+			case 'radzina':
+			case 'radzinka':
+			case 'radzio':
+			case 'radosław':
+			case 'radoslaw':
+			case 'radek':
+				output('Przeciążenie systemu. Restart za: 3...');
+				setTimeout(()=>output('2...'),1000);
+				setTimeout(()=>output('1...'),2000);
+				setTimeout(()=>output('0...'),3000);
+				setTimeout(()=>output('Restart nieudany. System nie jest w stanie zapanować nad tak dużą ilością mocy.'),4000);
+				setTimeout(()=>output('Paroby uciekają z lochów, krasnale ogrodowe stoją i się patrzą, a wali pachnie.'),7000);
+				setTimeout(()=>output('Rynek Potworowski płonie.'),10000);
+				setTimeout(()=>output('Stan wyjątkowy w mocarstwie Dłuska Wola ogłoszony.'),13000);
+			break;
+			case (command.match(/^prod\s*\d$/) || {}).input:
+
+				const lvl_raw = command.match(/\d/);
+				const lvl = parseInt(lvl_raw[0]);
+				
+				pc_production = Math.pow(15, lvl);
+
+				const sup = ()=>{
+					const sup_el = document.createElement('sup');
+					sup_el.appendChild(document.createTextNode(lvl));
+					return sup_el;
+				};
+
+				output('produkcja papryki to teraz 15', true, sup());
+			break;
+			default:
+				if(command){
+					switch(this.no_command_iterator){
+						case 1:
+							output('Nie ma takiej komendy.');
+						break;
+						case 2:
+							output('Nie ma takiej komendy!');
+						break;
+						case 3:
+							output('Mówię do ciebie! Nie! ma! takiej! komendy!');
+						break;
+						case 4:
+							output('STOP!');
+						break;
+						case 5:
+							output('Mógłbyś np. przestać mnie denerwować?');
+						break;
+						case 6:
+							output('Czyli mówisz, że potrzebujesz pomocy psychicznej? Polecam pedagoga szkolnego.');
+						break;
+						case 7:
+							output('A więc tak się bawimy...');
+						break;
+						case 8:
+							output('A lepę na ryj byś nie chciał?');
+						break;
+						case 9:
+							output('Nie wku*wiaj mnie, proszę.');
+						break;
+						case 10:
+							output('Zaraz chyba przestanę być miły...');
+						break;
+						case 11: {
+							output('Ok, sam tego chciałeś!');
+							let max = 6;
+							let times = 0;
+							const interval = setInterval(()=>{
+								const body = document.querySelector('body');
+								body.style.filter = `hue-rotate(${Math.floor(Math.random()*360)}deg)`;
+								times++;
+								if(times>=max){
+									clearInterval(interval);
+									output('I jak, było przyjemnie?');
+									body.style.filter = ``;
+								}
+							}, 200);
+						}
+						break;
+						case 12:
+							output('To było tylko małe szturchnięcie...');
+						break;
+						case 13:
+							output('Ale poczekaj, jeszcze trochę i nie będzie tak przyjemnie...');
+						break;
+						case 14: {
+							output('Ciekawe co powiesz jak pobawię się twoją papryką!');
+							let max = 30;
+							let times = 0;
+							const interval = setInterval(()=>{
+								times++;
+								const max_min_rand = 700;
+								let rand_translateX = Math.floor(Math.random() * (max_min_rand-(-max_min_rand)) + 1)+(-max_min_rand);
+								let rand_translateY = Math.floor(Math.random() * (max_min_rand-(-max_min_rand)) + 1)+(-max_min_rand);
+								pap_click.style.transform = `translate(${rand_translateX}px, ${rand_translateY}px)`;
+								if(times>=max){
+									clearInterval(interval);
+									pap_click.style.transform = ``;
+									output('Może teraz coś przemyślisz mały grzybie?');
+								}
+							}, 50);
+						}
+						break;
+						case 15:
+							output('Ty wiesz... gdyby wsadzić to co masz we łbie do główki od szpilki to wyszłaby grzechotka');
+						break;
+						case 16:
+							output('Rozumiem że można przegrać loterię genetyczną, ale twój ryj to jackpot wśród przegranych');
+						break;
+						case 17:
+							output('Rzucam tę robotę. Minimalna krajowa nie jest tego warta.');
+						break;
+						case 18:
+							output('...');
+						break;
+						case 19:
+							output('🖕');
+						break;					
+						default:
+							output('...');
+						break;
+					}
+				}
+				this.no_command_iterator++;
+				
+			break;
+		}
+	}
 };
 
 game.init();
@@ -911,9 +1173,7 @@ function unlock_item(unlck){
 
 const default_switch = theme_switches[localStorage.getItem('theme')-1];
 
-
-
-if(localStorage.length){
+if(localStorage.getItem('theme')){
 
 	default_switch.choose_theme();
 	default_switch.switch_switches();
