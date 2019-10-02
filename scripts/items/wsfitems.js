@@ -13,7 +13,7 @@ let wsfitems = [
 	new Workshop_fitem('Plecak', 800, 'Mały plecak, do którego ukraińcy mogą włożyć kilka papryk.', 'plecak.png', 'ukrainiec', 0.2, 'plecak', 1),
 	new Workshop_fitem('Plecak survivalowy', 4200, 'Większy plecak, do którego ukraińcy mogą włożyć kilkanaście papryk.', 'plecak_survivalowy.png', 'ukrainiec', 0.4, 'plecak', 2),
 
-	new Workshop_fitem('Widły', 400, '', 'widly.png', 'farmer', 0.3, 'widly', 1),
+	new Workshop_fitem('Widły', 400, 'Łap za widły i zbieraj paprykę!', 'widly.png', 'farmer', 0.3, 'widly', 1),
 	new Workshop_fitem('Widły do kamieni', 800, '', 'duze_widly.png', 'farmer', 0.6, 'widly', 2),
 
 	new Workshop_fitem('Taczka', 3200, '', 'taczka.png', 'farmer', 2, 'taczka', 1, 2),

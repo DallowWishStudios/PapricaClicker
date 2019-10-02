@@ -1,5 +1,5 @@
 ﻿let devmode =
-0
+1
 ; // 1 = true / 0 - false
 
 let progress=0;
