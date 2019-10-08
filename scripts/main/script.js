@@ -255,8 +255,6 @@ const game = {
 								clearInterval(interval);
 								fra.style.transform = ``;
 								fra.classList.remove('active');
-		
-								
 							}
 						}, 100);
 					}
@@ -616,8 +614,14 @@ let auto_sell_percent = 0;
 
 c_pepper_settings_slider_percent.innerHTML = c_pepper_settings_slider.value;
 
-sw_id = 0;
+const reset_theme = () => {
+	const bg_rays = document.getElementById('bg_rays');
+	pap_click.classList.remove('jashin');
+	bg_rays.style.backgroundImage = 'url("txt/bg_rays.png")';
+	console.log(bg_rays);
+};
 
+sw_id = 0;
 class Sw{
 
 	constructor(line, sw, one_at_once = false, unlocked = true){
@@ -627,6 +631,7 @@ class Sw{
 		this.c_switch = sw;
 		this.one_at_once = one_at_once;
 		this.unlocked = unlocked;
+		this.secret = unlocked;
 
 		this.opened = true;
 
@@ -674,7 +679,21 @@ class Sw{
 
 	choose_theme(){
 
-		localStorage.setItem('theme', this.id);
+		if(this.secret){
+			localStorage.setItem('theme', this.id);
+		}
+
+		paprica_click.classList.remove('jashin');
+
+		//reset_theme();
+
+
+		// if(pap_click.classList.contains('jashin')){
+
+		// 	const bg_rays = document.getElementById('bg_rays');
+		// 	pap_click.classList.remove('jashin');
+		// 	bg_rays.style.backgroundImage = 'url("txt/bg_rays.png")';
+		// }
 
 		switch (this.id) {
 			case 1:{
@@ -697,9 +716,8 @@ class Sw{
 			case 5:{
 				if(this.unlocked)
 					set_theme('black', 'rgb(20, 20, 20)', 'black', 'black');
-					const bg_rays = document.getElementById('bg_rays');
-					bg_rays.style.backgroundImage = 'url("txt/bg_trojkat.png")';
-					//promienie
+					paprica_click.classList.add('jashin');
+					console.trace();
 				break;
 			}
 		
@@ -773,8 +791,6 @@ class Setting {
 			if(e.target == this.btn || e.target == this.btn.children[0]){
 				!this.opened ? this.show() : this.hide();
 			} 
-
-			//! nie usuwaj - zastosowany event bubblin ale okno ustawien musi byc w przycisku zeby dzialalo
 
 			// else if(e.target.className === 'settings_close_btn' || e.target.parentElement.className === 'settings_close_btn'){
 			// 	this.hide();
@@ -890,6 +906,7 @@ papclck.addEventListener('contextmenu', (e) => {
 	//klikańsko xD
 }, false);
 
+const paprica_click = document.querySelector("#paprica_click");
 const pap_click = document.querySelector("#paprica_click img");
 const hder = document.getElementById("header").style;
 const body = document.querySelector("body").style;
@@ -1037,17 +1054,16 @@ function cclick() {
 	} else if(!theme_switches[4].unlocked){
 		if(current_cursor === 'Kosa Jashin'){
 			//if(!theme_switches[4].unlocked){
-		
-				const secret_theme_switch = document.getElementById('secret_theme_jashin');
-				const secret_theme_text = secret_theme_switch.querySelector('.secret_theme_text');
-		
-				secret_theme_switch.classList.remove('secret_theme');
-				theme_switches[4].unlocked = true;
-				secret_theme_switch.color = 'red';
-				secret_theme_text.innerHTML = 'Jashin';
-				theme_switches[4].choose_theme();
-				theme_switches[4].switch_switches();
-			//}
+			const secret_theme_switch = document.getElementById('secret_theme_jashin');
+			const secret_theme_text = secret_theme_switch.querySelector('.secret_theme_text');
+	
+			secret_theme_switch.classList.remove('secret_theme');
+			theme_switches[4].unlocked = true;
+			secret_theme_switch.color = 'red';
+			secret_theme_text.innerHTML = 'Jashin';
+			//theme_switches[4].choose_theme();
+			theme_switches[4].switch_switches();
+			paprica_click.classList.add('jashin');
 		}
 	}
 }

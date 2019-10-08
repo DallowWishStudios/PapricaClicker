@@ -170,7 +170,7 @@ const ukr_theme_set = ()=>{
 		theme_switches[3].unlocked = true;
 		secret_theme_switch.color = 'red';
 		secret_theme_text.innerHTML = 'Barszcz Ukraiński';
-		theme_switches[3].choose_theme();
+		//theme_switches[3].choose_theme();
 		theme_switches[3].switch_switches();
 	}
 }
