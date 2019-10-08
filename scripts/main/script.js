@@ -69,7 +69,7 @@ const c_expand_ws_button = document.getElementById('exp_ws_btn');
 const c_header = document.querySelector('#header h1');
 
 const game = {
-	version: 'alpha 0.4.4.2',
+	version: 'alpha 0.4.4.3',
 	// devmode: devmode,
 	header_content: 'Paprica Clicker',
 	first_time: true,
@@ -694,6 +694,14 @@ class Sw{
 					set_theme('rgb(43, 135, 210)', 'rgb(218, 194, 40)', 'rgb(43, 135, 210)', 'rgb(43, 135, 210)');
 				break;
 			}
+			case 5:{
+				if(this.unlocked)
+					set_theme('black', 'rgb(20, 20, 20)', 'black', 'black');
+					const bg_rays = document.getElementById('bg_rays');
+					bg_rays.style.backgroundImage = 'url("txt/bg_trojkat.png")';
+					//promienie
+				break;
+			}
 		
 			default:
 				break;
@@ -722,6 +730,7 @@ let theme_switches = [
 	new Sw(document.querySelectorAll('.theme_piece')[1], document.querySelectorAll('.theme_piece')[1].querySelector('.setting_switch'), true),
 	new Sw(document.querySelectorAll('.theme_piece')[2], document.querySelectorAll('.theme_piece')[2].querySelector('.setting_switch'), true),
 	new Sw(document.querySelectorAll('.theme_piece')[3], document.querySelectorAll('.theme_piece')[3].querySelector('.setting_switch'), true, false),
+	new Sw(document.querySelectorAll('.theme_piece')[4], document.querySelectorAll('.theme_piece')[4].querySelector('.setting_switch'), true, false),
 ];
 
 function set_theme(header_color, body_color, footer_color, stts_color){
@@ -1025,6 +1034,21 @@ function cclick() {
 				pap_click.style.filter = '';
 			}
 		}, 2000);	
+	} else if(!theme_switches[4].unlocked){
+		if(current_cursor === 'Kosa Jashin'){
+			//if(!theme_switches[4].unlocked){
+		
+				const secret_theme_switch = document.getElementById('secret_theme_jashin');
+				const secret_theme_text = secret_theme_switch.querySelector('.secret_theme_text');
+		
+				secret_theme_switch.classList.remove('secret_theme');
+				theme_switches[4].unlocked = true;
+				secret_theme_switch.color = 'red';
+				secret_theme_text.innerHTML = 'Jashin';
+				theme_switches[4].choose_theme();
+				theme_switches[4].switch_switches();
+			//}
+		}
 	}
 }
 
