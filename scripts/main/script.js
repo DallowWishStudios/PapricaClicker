@@ -69,7 +69,7 @@ const c_expand_ws_button = document.getElementById('exp_ws_btn');
 const c_header = document.querySelector('#header h1');
 
 const game = {
-	version: 'alpha 0.4.4.3',
+	version: 'alpha 0.4.5',
 	// devmode: devmode,
 	header_content: 'Paprica Clicker',
 	first_time: true,
@@ -300,40 +300,20 @@ const game = {
 
 				output('produkcja papryki to teraz 15', true, sup());
 			break;
-			default:
+			default: {
 				if(command){
-					switch(this.no_command_iterator){
-						case 1:
-							output('Nie ma takiej komendy.');
-						break;
-						case 2:
-							output('Nie ma takiej komendy!');
-						break;
-						case 3:
-							output('Mówię do ciebie! Nie! ma! takiej! komendy!');
-						break;
-						case 4:
-							output('STOP!');
-						break;
-						case 5:
-							output('Mógłbyś np. przestać mnie denerwować?');
-						break;
-						case 6:
-							output('Czyli mówisz, że potrzebujesz pomocy psychicznej? Polecam pedagoga szkolnego.');
-						break;
-						case 7:
-							output('A więc tak się bawimy...');
-						break;
-						case 8:
-							output('A lepę na ryj byś nie chciał?');
-						break;
-						case 9:
-							output('Nie wku*wiaj mnie, proszę.');
-						break;
-						case 10:
-							output('Zaraz chyba przestanę być miły...');
-						break;
-						case 11: {
+					const bullets = [
+						'Nie ma takiej komendy.',
+						'Nie ma takiej komendy!',
+						'Mówię do ciebie! Nie! ma! takiej! komendy!',
+						'STOP!',
+						'Mógłbyś np. przestać mnie denerwować?',
+						'Czyli mówisz, że potrzebujesz pomocy psychicznej? Polecam pedagoga szkolnego.',
+						'A więc tak się bawimy...',
+						'A lepę na ryj byś nie chciał?',
+						'Nie wku*wiaj mnie, proszę.',
+						'Zaraz chyba przestanę być miły...',
+						() => {
 							output('Ok, sam tego chciałeś!');
 							let max = 6;
 							let times = 0;
@@ -347,15 +327,10 @@ const game = {
 									body.style.filter = ``;
 								}
 							}, 200);
-						}
-						break;
-						case 12:
-							output('To było tylko małe szturchnięcie...');
-						break;
-						case 13:
-							output('Ale poczekaj, jeszcze trochę i nie będzie tak przyjemnie...');
-						break;
-						case 14: {
+						},
+						'To było tylko małe szturchnięcie...',
+						'Ale poczekaj, jeszcze trochę i nie będzie tak przyjemnie...',
+						() => {
 							output('Ciekawe co powiesz jak pobawię się twoją papryką!');
 							let max = 30;
 							let times = 0;
@@ -371,30 +346,29 @@ const game = {
 									output('Może teraz coś przemyślisz mały grzybie?');
 								}
 							}, 50);
+						},
+						'Ty wiesz... gdyby wsadzić to co masz we łbie do główki od szpilki to wyszłaby grzechotka',
+						'Rozumiem że można przegrać loterię genetyczną, ale twój ryj to jackpot wśród przegranych',
+						'Rzucam tę robotę. Minimalna krajowa nie jest tego warta.',
+						'...',
+						'🖕',
+						'...'
+					];
+
+					const blt = bullets[this.no_command_iterator-1];
+
+					if(this.no_command_iterator-1 < bullets.length){
+						if(typeof blt === 'string'){
+							output(blt);
+						} else {
+							blt();
 						}
-						break;
-						case 15:
-							output('Ty wiesz... gdyby wsadzić to co masz we łbie do główki od szpilki to wyszłaby grzechotka');
-						break;
-						case 16:
-							output('Rozumiem że można przegrać loterię genetyczną, ale twój ryj to jackpot wśród przegranych');
-						break;
-						case 17:
-							output('Rzucam tę robotę. Minimalna krajowa nie jest tego warta.');
-						break;
-						case 18:
-							output('...');
-						break;
-						case 19:
-							output('🖕');
-						break;					
-						default:
-							output('...');
-						break;
+					} else {
+						output(bullets[bullets.length-1]);
 					}
 				}
 				this.no_command_iterator++;
-				
+			}
 			break;
 		}
 	}
