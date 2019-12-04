@@ -246,7 +246,7 @@ footer {
 	justify-content: flex-end;
 }
 
-footer input[type=image]{
+footer input[type=image], .social{
 	width: 50px;
 	margin: 5px;
 	filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.63));
@@ -255,9 +255,17 @@ footer input[type=image]{
 	-webkit-transition: all 0.1s cubic-bezier(.22,.61,.36,1);
 }
 
-footer input[type=image]:hover{
+footer input[type=image]:hover, .social:hover{
 	filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.63));
 	opacity: 1;
+}
+
+.social {
+	text-decoration: none;
+}
+
+.social:hover {
+	color: #fff9 !important;
 }
 
 footer form + #donate_text {
@@ -285,7 +293,7 @@ main {
 	margin-right: -12px;
 }
 
-#logo > img {
+#logo img {
 	height: 70px;
 }
 
