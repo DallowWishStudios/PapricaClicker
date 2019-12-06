@@ -69,7 +69,7 @@ const c_expand_ws_button = document.getElementById('exp_ws_btn');
 const c_header = document.querySelector('#header h1');
 
 const game = {
-	version: 'alpha 0.4.4.4',
+	version: 'alpha 0.4.4.5',
 	// devmode: devmode,
 	header_content: 'Paprica Clicker',
 	first_time: true,
@@ -448,7 +448,8 @@ const ad = {
 	watched: false,
 
 	init(){
-		
+		this.watch_btn.classList.add('watched'); // deactivated
+
 		this.watch_btn.addEventListener('click', () => {
 			if(!this.watched){
 				this.watch_btn.classList.add('watched');
