@@ -246,25 +246,28 @@ footer {
 	justify-content: flex-end;
 }
 
-footer input[type=image], .social{
+footer input[type=image]{
 	width: 50px;
 	margin: 5px;
 	filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.63));
-	opacity: 0.7;
+	opacity: 1;
 	transition: all 0.1s cubic-bezier(.22,.61,.36,1);
 	-webkit-transition: all 0.1s cubic-bezier(.22,.61,.36,1);
 }
 
 footer input[type=image]:hover, .social:hover{
 	filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.63));
-	opacity: 1;
 }
 
 .social {
 	text-decoration: none;
 }
 
-.social:hover {
+.social_logo {
+	filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.63));
+}
+
+.social_logo:hover + .social_label, .social_label:hover {
 	color: #fff9 !important;
 }
 
@@ -273,7 +276,7 @@ footer form + #donate_text {
 	-webkit-transition: all 0.1s cubic-bezier(.22,.61,.36,1);
 }
 
-footer form:hover + #donate_text {
+footer form:hover + #donate_text{
 	color: rgba(255, 255, 255, 0.5)
 }
 

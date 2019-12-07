@@ -69,7 +69,7 @@ const c_expand_ws_button = document.getElementById('exp_ws_btn');
 const c_header = document.querySelector('#header h1');
 
 const game = {
-	version: 'alpha 0.4.4.5',
+	version: 'alpha 0.4.4.6',
 	// devmode: devmode,
 	header_content: 'Paprica Clicker',
 	first_time: true,
