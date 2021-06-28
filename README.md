@@ -15,8 +15,6 @@ Paprica Clicker is a funny clicker-type game about peppers. Action takes place i
 ## Technologies
 
 Project is created with:
-
-The bot:
 - HTML
 - CSS
 - JavaScript
