@@ -12,6 +12,8 @@
 
 Paprica Clicker is a funny clicker-type game about peppers. Action takes place in the Potworów city.
 
+It also is my first website project.
+
 ## Technologies
 
 Project is created with:
